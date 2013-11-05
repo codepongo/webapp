@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator=" CodePongo (Base on Kukkaisvoima version 15b3TA)" -->
+<rss version="2.0"
+xmlns:content="http://purl.org/rss/1.0/modules/content/"
+xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+<channel>
+<title>CodePongo</title>
+<link>http://codepongo.com/blog</link>
+<description></description>
+<pubDate>Fri, 30 Aug 2013 11:02:11 +0200</pubDate>
+<lastBuildDate>Fri, 30 Aug 2013 11:02:11 +0200</lastBuildDate>
+<generator>http://codepongo.com/blog</generator>
+<language>zh_cn</language>
+<item>
+<title><h1>China Weather Forecast</h1>
+</title>
+<link>http://codepongo.com/blog/3yCpKf</link>
+<comments>http://codepongo.com/blog/3yCpKf#comments</comments>
+<pubDate>Fri, 30 Aug 2013 11:02:11 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<guid isPermaLink="false">http://codepongo.com/blog/3yCpKf/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<p><img src="/weather_favicon.png" alt="alt=&quot;favicon&quot;" /></p>
+
+<h2>Introduction</h2>
+
+<p>the weather forecast from <a href="http://www.weather.com.cn/">Weather China</a></p>
+
+<h2>snapshot</h2>
+
+<p><img src="/weather_snapshot.png" alt="alt=&quot;snapshot&quot;" /></p>
+
+<ul>
+<li>--delete delete cache data</li>
+<li>--province province name e.g. 黑龙江</li>
+<li>--city city name e.g. 哈尔滨</li>
+</ul>
+
+<h2>usage</h2>
+
+<pre>
+USAGE:
+weather.py [-d|--delete] -p|--province string -c|--city city
+
+    --delete clean cache
+
+    --province province name
+
+    --city city name
+</pre>
+
+<h2>develop</h2>
+
+<p>python</p>
+
+<p><a href="https://github.com/codepongo/CNWeatherForecast">source</a></p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/3yCpKf/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>cJSON source analysis</h1>
+</title>
+<link>http://codepongo.com/blog/3uhyc1</link>
+<comments>http://codepongo.com/blog/3uhyc1#comments</comments>
+<pubDate>Thu, 22 Aug 2013 18:16:02 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>json</category>
+<category>cJSON</category>
+<guid isPermaLink="false">http://codepongo.com/blog/3uhyc1/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<h2>Introduction</h2>
+
+<p>cJSON paser with a single file of C, and a single header file.like description 
+of README, the library can take away as much legwork and is the dumbest possible
+parser.</p>
+
+<p>homepage:<a href="http://sourceforge.net/projects/cjson/?source=directory">http://sourceforge.net/projects/cjson/?source=directory</a></p>
+
+<p>mirror:<a href="https://github.com/openxc/cJSON">https://github.com/openxc/cJSON</a></p>
+
+<p>license:<strong>MIT</strong></p>
+
+<p>The feature of the cJSON library is that the string formatted json(JSON data) and 
+the json structure(cJSON object) convert to each other.</p>
+
+<h2>Notice</h2>
+
+<ul>
+<li><strong>no</strong> safe with multi-threads</li>
+<li>when cJSON_Parse() and cJSON_CreateXXX() functions are finished, call cJSON_Delete() to free.</li>
+<li>when cJSON_PrintXXX() functions are finished, call Hooks::free_fn to free.</li>
+<li>strdup() needs free.</li>
+</ul>
+
+<h2>Structure</h2>
+
+<p>In README, the author introducts two way to use the libaray.one is AUTO mode and
+the other is MANUAL mode.
+There is a structure introduction in the manual mode part.</p>
+
+<blockquote>
+Here's the structure:
+typedef struct cJSON {
+    struct cJSON *next,*prev;
+    struct cJSON *child;
+
+    int type;
+
+    char *valuestring;
+    int valueint;
+    double valuedouble;
+
+    char *string;
+} cJSON;
+
+By default all values are 0 unless set by virtue of being meaningful.
+
+next/prev is a doubly linked list of siblings. next takes you to your sibling,
+prev takes you back from your sibling to you.
+Only objects and arrays have a "child", and it's the head of the doubly linked list.
+A "child" entry will have prev==0, but next potentially points on. The last sibling has next=0.
+The type expresses Null/True/False/Number/String/Array/Object, all of which are #defined in
+cJSON.h
+
+A Number has valueint and valuedouble. If you're expecting an int, read valueint, if not read
+valuedouble.
+
+Any entry which is in the linked list which is the child of an object will have a "string"
+which is the "name" of the entry. When I said "name" in the above example, that's "string".
+"string" is the JSON name for the 'variable name' if you will.
+
+Now you can trivially walk the lists, recursively, and parse as you please.
+You can invoke cJSON\_Parse to get cJSON to parse for you, and then you can take
+the root object, and traverse the structure (which is, formally, an N-tree),
+and tokenise as you please. 
+</blockquote>
+
+<p>In fact, json structure is a tree, so cJSON struct is like the node of tree that
+has child node pointer and sibling pointers
+there are three type structure in json. those are object, number and string.
+the type member is as the type in json. the type member'value are False, True, 
+NULL, Number, String, Array and Object.
+the value is stored in the one of valuestring, valueint and valuedouble by the type.</p>
+
+<pre>
+ +------+          +-----+           +-----+
+ |cJSON |---prev---|cJSON| ---next---|cJSON|
+ +------+          +-----+           +-----+
+                      |
+                    child      
+                      |        +-----+          +-----+          +-----+
+                      +--------|cJSON|---prev---|cJSON|---next---|cJSON|
+                               +-----+          +-----+          +-----+
+</pre>
+
+<h2>Functions</h2>
+
+<p>print_xxxx functions are convert json to string
+parse_xxxx functions are convert string to json</p>
+
+<h3>convert functions</h3>
+
+<ul>
+<li>cJSON_strcasecmp() - strcmpcase()</li>
+<li>cJSON_strdup() - strdup()</li>
+<li>parse_number() - atoi() and atof() </li>
+<li>print_number() - itoa() and fto2()</li>
+<li>parse_string() - to a unescape string</li>
+<li>print_string() - to a unescape string</li>
+<li>print_string_ptr() - to a escape string</li>
+</ul>
+
+<h3>parse functions</h3>
+
+<ul>
+<li>skip() - trim invisible char such as whitespace cr lf</li>
+<li>parse_value() - parse json token</li>
+<li>print_value() - json to string</li>
+<li>parse_array() - parse json array token</li>
+<li>print_array() - json array to string</li>
+<li>parse_object() </li>
+</ul>
+
+<h3>all function</h3>
+
+<ul>
+<li>cJSON_strcasecmp() - strcmpcase()</li>
+<li>cJSON_strdup() - strdup()</li>
+<li>cJSON_InitHooks() - set malloc and free</li>
+<li>cJSON_New_Item() - structure</li>
+<li>cJSON_Delete()</li>
+<li>parse_number() - atoi() and atof() </li>
+<li>print_number() - itoa() and fto2()</li>
+<li>parse_string() - to a unescape string</li>
+<li>print_string() - to a unescape string</li>
+<li>print_string_ptr() - to a escape string</li>
+<li>skip() - trim invisible char such as whitespace cr lf</li>
+<li>cJSON_ParseWithOpts - return_parse_end:the point to the remain string require_null_terminated:there is no remain string or return error</li>
+<li>cJSON_Parse() - string to json the same as cJSON_ParseWithOpts(value, 0, 0)</li>
+<li>cJSON_Print() - json to string</li>
+<li>cJSON_PrintUnformatted() - json to unformatted string</li>
+<li>parse_value() - parse json token</li>
+<li>print_value() - json to string</li>
+<li>parse_array() - parse json array token to string</li>
+<li>print_array() - json array to string</li>
+<li>parse_object() - string to json object</li>
+<li>print_object() - json object</li>
+<li>cJSON_GetArraySize() - json array size</li>
+<li>cJSON_AddItemToArray() - add json to json array</li>
+<li>cJSON_AddItemToObject() - add json to json object</li>
+<li>cJSON_AddItemReferenceToArray() - add json to json array without clone</li>
+<li>cJSON_AddItemReferenceToObject() - add json to json object without clone</li>
+<li>cJSON_DetachItemFormObject</li>
+<li>parse_object() </li>
+</ul>
+
+<h2>Process</h2>
+
+<p>parse_value() - parse the type of json or call parse_array() or parse_object()
+parse_array() - in loop, parse call parse_value() for every object in array.
+parse_object() - call parse self and loop to parse its childern by parse_string</p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/3uhyc1/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>Function Pointers To Malloc And Free</h1>
+</title>
+<link>http://codepongo.com/blog/1nZIUf</link>
+<comments>http://codepongo.com/blog/1nZIUf#comments</comments>
+<pubDate>Thu, 08 Aug 2013 07:52:23 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>cJSON</category>
+<category>expat</category>
+<category>sqlite</category>
+<guid isPermaLink="false">http://codepongo.com/blog/1nZIUf/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<p>Recently, I read the source of sqlite, cJSON and expat.
+There is a structure in these source.
+It looks like:</p>
+
+<pre>
+typdef struct {
+    void* (*mallocFn)(size_t s)
+void ( * freenFn)(void * p)
+} Mem;
+</pre>
+
+<p>The structure has two function pointer members.
+The one'type is the malloc function.The Other'type is the free function.</p>
+
+<p>In the source, there is a function interface for set the function pointer.</p>
+
+<p>When the program needs alloc and free memory, it calls the functions to be pointed
+by the two members of the structure. </p>
+
+<p>In my opinion, there are three advantages:</p>
+
+<ul>
+<li><p>Check memory leak.To implement the malloc and free functions with mark a 
+record.When the program is end, check the records to find out memory leak.(I often use it)</p></li>
+<li><p>Improve the performance.To implement the memory pool myself.(I never use it)</p></li>
+<li><p>Out-Of-Memory testing.(this advantage is found in sqlite document)</p></li>
+</ul>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/1nZIUf/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>bjfoodprice</h1>
+</title>
+<link>http://codepongo.com/blog/4PL5VQ</link>
+<comments>http://codepongo.com/blog/4PL5VQ#comments</comments>
+<pubDate>Wed, 08 May 2013 11:55:47 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<guid isPermaLink="false">http://codepongo.com/blog/4PL5VQ/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<h2>北京食品价格</h2>
+
+<p><img src="/foodprice.png" alt="alt=&quot;foodprice ico&quot;" /></p>
+
+<h3>Introduction</h3>
+
+<p>BeiJing Food Price from BaLiQiao and XiFaDi</p>
+
+<p>获取北京食品价格从"八里桥"和"新发地"</p>
+
+<h3>snapshot 截图</h3>
+
+<p><img src="/foodprice_snapshot.png" alt="alt=&quot;snapshot&quot;" /></p>
+
+<ul>
+<li>all 输出所有食品价格</li>
+<li>help 获得用法</li>
+<li>multi-column 多个价格在一行输出</li>
+<li>output 将菜价输出至文件</li>
+</ul>
+
+<h3>usage 用法</h3>
+
+<blockquote>
+USEAGE:
+foodprice.py [-a|--all] [-h|--help][-m|--multi-column][-o <file>|--output=<file>]
+
+    all     Show all kinds of food
+
+    help    Help
+
+    output  output in <file>
+</blockquote>
+
+<h3>develop 开发</h3>
+
+<p>python
+<a href="https://github.com/codepongo/bjfoodprice">source code 源代码</a></p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/4PL5VQ/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>《Learn Objective-C On the Mac》Note</h1>
+</title>
+<link>http://codepongo.com/blog/3BvIiy</link>
+<comments>http://codepongo.com/blog/3BvIiy#comments</comments>
+<pubDate>Tue, 16 Apr 2013 17:50:45 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>objc-cocoa</category>
+<guid isPermaLink="false">http://codepongo.com/blog/3BvIiy/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<h2>《Objective-C 基础教程》笔记</h2>
+
+<h3>1. Hello</h3>
+
+<h3>2. Extensions to C</h3>
+
+<p>#import </p>
+
+<p>NSLog</p>
+
+<p>%@</p>
+
+<p>@"string"</p>
+
+<p>BOOL YES NO</p>
+
+<h3>3. OOP</h3>
+
+<pre><code>self
+</code></pre>
+
+<pre>   
+/* class.h BEGIN */
+@interface Class:NSObject
+{
+    int _member;
+}   
+
+- (int)function:(int)parameter;
+
+- (void)many_parameters_function:(int)parameter1 some_information:(NString *)parameter2;
+
+- (void)no_parameter_function;
+@end //Class
+/* class.h END */
+</pre>
+
+<pre>
+/* class.m BEGIN */
+@implementation Class
+- (int)function:(int)p 
+{
+}//function
+- (void)many_parameters_function:(int)p1 some_information:(NString *)p2
+{
+}//many_parameters_function
+- (void)no_parameter_function
+{
+} //noparameter_function
+@end //Class
+/* class.m END */
+    </pre>
+
+
+Objective-C does not support multiple inheritance
+
+<pre>
+ /* Children.h BEGIN */
+@interface Children : Parent
+
+@end //Children
+/* Children.h END */
+</pre>
+
+<p>super</p>
+
+<p>isa()</p>
+
+<p>overridden</p>
+
+<h3>5. Composition</h3>
+
+<p>description</p>
+
+<h3>6. Organization</h3>
+
+<p>@class sets up a forward reference</p>
+
+<h3>7. More About Xcode</h3>
+
+<p>defaults write com.apple.Xcode PBXCustomTemplateMacroDefinitions</p>
+
+<p>'{"ORGANIZATIONNAME" = "zuohaitao";}'</p>
+
+<p>command+shift+E</p>
+
+<p>File->Make Snapshot</p>
+
+<p>File->Snapshots</p>
+
+<p>command+D</p>
+
+<p>Help->Show Research Assistant.</p>
+
+<h2>8. Foundation Kit</h2>
+
+<pre>
+  NSRange
+    typedef struct _NSRange NSRange;
+    struct _NSRange
+    {
+        NSUInteger location;
+        NSUInteger length;
+    };
+</pre>
+
+<pre>
+  NSPoint
+    typedef struct _NSPoint NSPoint;
+    struct _NSPoint
+    {
+        CGFloat x;
+        CGFloat y;
+    };
+</pre>
+
+<pre>
+  NSSize
+    typedef struct _NSSize NSSize;
+    struct _NSSize
+    {
+        CGFloat width;
+        CGFloat height;
+    };
+</pre>
+
+<pre>
+  NSRect
+    typedef struct _NSRect NSRect;
+    struct _NSRect
+    {
+        NSPoint origin;
+        NSSize size;
+    };
+</pre>
+
+<pre>
+  NSString
+    + (id)stringWithFormat:(NSString *)format,...
+    - (unsigned int)length
+    - (BOOL)isEqualToString:(NSString *)aString
+    - (NSComparisonResult)compare:(NSString *) string;
+    - (NSComparisonResult)compare:(NSString *) string 
+                          options:(unsigned) mask;
+    - (BOOL)hasPrefix:(NSString *)aString;
+    - (BOOL)hasSuffix:(NSString *)aString;
+    - (NSRange)rangeOfString:(NSString *) aString;
+    - (NSArray *)componentsSeparatedByString:(NSString *)separator
+    - (NSString *)componentsJoinedByString:(NSString *)separator
+    - (NSString *)stringByExpandingTildeInPath
+</pre>
+
+<pre>
+  NSMutableString
+    + (id)stringWithCapacity:(unsigned)capacity;
+    - (void)appendString:(NSString *)aString;
+    - (void)appendFormat:(NSString *)format, ...;
+    - (void)deleteCharactersInRange:(NSRange)range;
+</pre>
+
+<pre>
+  NSArray
+    + (id)arrayWithObjects:(id)firstObj,...;
+    - (unsigned)count;
+    - (id)objectAtIndex:(unsigned int) index;
+</pre>
+
+<pre>
+  NSMutableArray
+    + (id)arrayWithCapacity:(unsigned) numItems;
+    - (void)addObject:(id)anObject;
+    - (void)removeObjectAtIndex:(unsigned)index;
+    - (NSEnumerator *)objectEnumerator;
+    - (id)nextObject;
+</pre>
+
+<pre>
+        /* enumeration */
+        NSEnumerator *enumerator;
+        enumerator = [array objectEnumerator];
+        id thingie;
+        while(thingie = [enumerator nextObject]) {
+            NSLog(@"I found %@", thingie);
+        }
+        /* Fast Enumeration */
+        for(NSString *string in array) {
+            NSLog(@"I found %@", string);
+        }
+</pre>
+
+<pre>
+  NSDictionary
+    + (id)dictionaryWithObjectsAndKeys:(id)firstObject, (id)firstKey, ...;
+    - (id)objectForKey:(id)aKey;
+</pre>
+
+<pre>
+  NSMutableDictionary
+    + (id)dictionaryWithCapacity:(unsigned int)numItems;
+    - (void)setObject:(id)anObject forKey:(id)aKey;
+    - (void)removeObjectForKey:(id)aKey;
+</pre>
+
+<p>because in Cocoa may classes are implemented as class clusters,</p>
+
+<p>don't create subclass to extend, use categories. </p>
+
+<pre>
+  NSNumber
+    + (NSNumber *)numberWithChar:(char)value;
+    + (NSNumber *)numberWithInt:(int)value;
+    + (NSNumber *)numberWithFloat:(float)value;
+    + (NSNumber *)numberWithBool:(BOOL)value;
+    - (char)charValue;
+    - (int)intValue;
+    - (float)floatValue;
+    - (BOOL)boolValue;
+    - (NSString *)stringValue;
+</pre>
+
+<pre>
+  NSValue
+    + (NSValue *)valueWithBytes:(const void *)value
+                       objCType:(const char *)type;
+    + (NSValue *)valueWithPoint:(NSPoint)point;
+    + (NSValue *)valueWithSize:(NSSize)size;
+    + (NSValue *)valueWithRect:(NSRect)rect;
+    - (NSPoint)pointValue;
+    - (NSSize)sizeValue;
+    - (NSRect)rectValue;
+</pre>
+
+<pre>
+  NSNull
+    + (NSNull *) null;
+</pre>
+
+<pre>
+  NSFileManager
+    + (NSFileManager *)defaultManager
+    - (NSDirectoryEnumerator *)enumeratorAtPath:(NSString *)path
+</pre>
+
+<h3>9.0 Memory Management</h3>
+
+<ul>
+<li>Garbage Collection(GC)</li>
+</ul>
+
+<p>If you know that your programs will only be run on Leopard or later, 
+you can take advantage of Objective-C 2.0's garbage collection</p>
+
+<ul>
+<li>Reference Counting(RC)</li>
+</ul>
+
+<p>Automatic Reference Counting(ARC)</p>
+
+<p>ARC is supported in Xcode 4.2 for OS X v10.6 and v10.7 (64-bit applications) and for iOS 4 and iOS 5. </p>
+
+<p>Weak references are not supported in OS X v10.6 and iOS 4.</p>
+
+<ul>
+<li><p>Manual Reference Counting(MRC)</p>
+
+<pre><code>- (id)retain;
+-(oneway void)release;
+</code></pre></li>
+</ul>
+
+<p>oneway is used with the distributed objects API, 
+which allows use of objective-c objects between 
+different threads or applications. It tells the 
+system that it should not block the calling thread 
+until the method returns. Without it, the caller 
+will block, even though the method's return type 
+is void. Obviously, it is never used with anything 
+other than void, as doing so would mean the method 
+returns something, but the caller doesn't get it.</p>
+
+<pre><code>    - (unsigned)retainCount;
+    - (id)autorelease;
+</code></pre>
+
+<p>The Rules of Cocoa Memory Management                                                     </p>
+
+<pre>
+   +----------------+-------------------------+--------------------------------------------+
+   |Obtained Via... |Transient                |Hang On                                     |
+   +----------------+-------------------------+--------------------------------------------+
+   |alloc/new/copy  |Release when done        | Release in dealloc                         |
+   +----------------+-------------------------+--------------------------------------------+
+   |Any other way   |Don't need to do anything| Retain when acquired, release in dealloc   |
+   +----------------+-------------------------+--------------------------------------------+
+</pre>
+
+<pre><code>    /* Keeping The Pool Clean */
+    NSAutoreleasePool *pool;
+    pool = [[NSAutoreleasePool alloc] init];
+    int i;
+    for (i = 0; i &lt; 1000000; i++) {
+        id object = [someArray objectAtIndex: i];
+        NSString *desc = [object descrption];
+        // and do something with the description
+        if (i % 1000 == 0) {
+        [pool release];
+        pool = [[NSAutoreleasePool alloc] init];
+        }
+    }
+    [pool release]
+    /* Keeping The Pool Clean */
+</code></pre>
+
+<h3>10. Object Initialization</h3>
+
+<h3>11. Properties</h3>
+
+<p>Objective-C 2.0 features can only be used on Mac OS X 10.5 (Leopard) or later</p>
+
+<p>@property</p>
+
+<p>assign retain copy</p>
+
+<p>readonly readwrite</p>
+
+<p>nonatomic</p>
+
+<p>@synthesize</p>
+
+<h3>12.Categories</h3>
+
+<pre>
+        @interface ClassName(CategoryName)
+
+        @end //interface ClassName(CategoryName)
+</pre>  
+
+<pre>
+        @implementation ClassName(CategoryName)
+
+        @end //implementation ClassName(CategoryName)
+</pre>
+
+<ul>
+<li><p>Bad Category</p>
+
+<ol>
+<li><p>You can not add variables to class.</p></li>
+<li><p>When names collide, the category wins.</p></li>
+</ol></li>
+<li><p>Purpose</p>
+
+<ol>
+<li><p>split class implementation into multiple files or multiple frameworks</p></li>
+<li><p>creating forward references for private methods</p></li>
+<li><p>adding informal protocols to an object</p></li>
+</ol></li>
+<li><p>Delegate</p></li>
+</ul>
+
+<p>delegate is an object asked by another object to do some of its work.</p>
+
+<p>e.g. the AppKit class NSApplication asks its delegate if it should open an Untitled window when the application launches.</p>
+
+<p>@selector(func:)</p>
+
+<p>[obj respondsToSelector:@selector(func:)]</p>
+
+<h3>13. Protocols</h3>
+
+<pre>
+    @protocol FormalProtocolA
+
+    - (void)functionA;
+
+    @end //protocol FormalProtocolA
+</pre>
+
+<pre>
+    @protocol FormalProtocolB
+    - (void)functionB;
+    @end //protocol FormalProtocolB
+</pre>
+
+<pre>
+    @interface Obj:NSObject
+    @end //interface Obj
+</pre>
+
+<pre>
+    @implementation Obj
+    - (void)functionA
+    {
+    }
+    - (void)functionB
+    {
+    }
+    @end //interface Obj
+</pre>
+
+<ul>
+<li><p>A shallow copy</p>
+
+<p>you don't duplicate the referred objects; </p>
+
+<p>you new copy simply points at the referred objects that already exist.</p></li>
+<li><p>A deep copy</p>
+
+<p>makes duplicates of all the referred objects.</p></li>
+</ul>
+
+<pre>
+    - (id)copyWithZone:(NSZone *)zone
+    {
+        return [[[self class] allocWithZone: zone]init];
+    }
+</pre>
+
+<ul>
+<li><p>Objective-C 2.0</p></li>
+<li><p>@optional</p></li>
+<li><p>@required</p></li>
+</ul>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/3BvIiy/feed/</wfw:commentRss>
+</item>
+</channel>
+</rss>

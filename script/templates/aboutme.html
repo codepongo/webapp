@@ -1,0 +1,59 @@
+$def with(rss)
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="zuohaitao" />
+<link rel="stylesheet" href="static/aboutme.css" type="text/css" />
+<title>CodePongo - about me</title>
+<script>
+</script>
+</head>
+<body>
+<div id="content1">
+<nav>
+<ul>
+<li><a href="http://codepongo.com/blog">主页</a>|</li>
+<li><a href="http://codepongo.com/blog/application/">应用</a>|</li>
+<li><a href="http://news.codepongo.com/" target="_blank">新闻</a>|</li>
+<li><a href="">关于我</a></li>
+</ul>
+</nav>
+<div id="content2">
+<img src="static/head.png" alt="head"><b>zuohaitao</b><br>
+1982.12.02 male, beijing.<br>
+a software programer.<br>
+coding is not only work,but also is my favorite.<br>
+i like animals whatever alive or dead.<br>
+interest:cookie,swim,rock music,read,movie,paint...<br>
+IM:<img src="static/qq.png" alt="qq"><br>
+email:<img src="static/email.png" alt="email"><br>
+</p>
+<a href="http://bbs.chinaunix.net/space-uid-20730965.html" target="_blank">
+<img src="static/chinaunix.ico" alt="chinaunix ico" width="16" height="16">
+</a>
+<a href="http://code.google.com/p/utocode/" target="_blank">
+<img src="static/googlecode.png" alt="googlecode ico" width="16" height="16">
+</a>
+<a href="https://github.com/codepongo" target="_blank">
+<img src="static/github.ico" alt="github ico" width="16" height="16">
+</a>
+<a href="http://www.douban.com/people/zhuhuotui/" target="_blank">
+<img src="static/douban.ico" alt="douban ico" width="16" height="16"
+</a>
+
+<div>
+$for r in rss:
+    <div>
+		<a href="$r['url'] target="_blank"><img src="$r['ico']" width="16" height="16" />$r['url']</a>
+    </div>
+    <ul>
+    $for i in r['items']:
+        <li><a href="$i['url']" target="blank">$i['title']</a>  [$i['date']]</li>
+    </ul>
+
+</div>
+</div>
+</div>
+</body>
+</html>

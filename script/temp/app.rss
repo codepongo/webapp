@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator=" CodePongo (Base on Kukkaisvoima version 15b3TA)" -->
+<rss version="2.0"
+xmlns:content="http://purl.org/rss/1.0/modules/content/"
+xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+<channel>
+<title>CodePongo: application</title>
+<link>http://codepongo.com/blog</link>
+<description></description>
+<pubDate>Fri, 30 Aug 2013 11:02:11 +0200</pubDate>
+<lastBuildDate>Fri, 30 Aug 2013 11:02:11 +0200</lastBuildDate>
+<generator>http://codepongo.com/blog</generator>
+<language>zh_cn</language>
+<item>
+<title><h1>China Weather Forecast</h1>
+</title>
+<link>http://codepongo.com/blog/3yCpKf</link>
+<comments>http://codepongo.com/blog/3yCpKf#comments</comments>
+<pubDate>Fri, 30 Aug 2013 11:02:11 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<guid isPermaLink="false">http://codepongo.com/blog/3yCpKf/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<p><img src="/weather_favicon.png" alt="alt=&quot;favicon&quot;" /></p>
+
+<h2>Introduction</h2>
+
+<p>the weather forecast from <a href="http://www.weather.com.cn/">Weather China</a></p>
+
+<h2>snapshot</h2>
+
+<p><img src="/weather_snapshot.png" alt="alt=&quot;snapshot&quot;" /></p>
+
+<ul>
+<li>--delete delete cache data</li>
+<li>--province province name e.g. 黑龙江</li>
+<li>--city city name e.g. 哈尔滨</li>
+</ul>
+
+<h2>usage</h2>
+
+<pre>
+USAGE:
+weather.py [-d|--delete] -p|--province string -c|--city city
+
+    --delete clean cache
+
+    --province province name
+
+    --city city name
+</pre>
+
+<h2>develop</h2>
+
+<p>python</p>
+
+<p><a href="https://github.com/codepongo/CNWeatherForecast">source</a></p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/3yCpKf/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>bjfoodprice</h1>
+</title>
+<link>http://codepongo.com/blog/4PL5VQ</link>
+<comments>http://codepongo.com/blog/4PL5VQ#comments</comments>
+<pubDate>Wed, 08 May 2013 11:55:47 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<guid isPermaLink="false">http://codepongo.com/blog/4PL5VQ/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<h2>北京食品价格</h2>
+
+<p><img src="/foodprice.png" alt="alt=&quot;foodprice ico&quot;" /></p>
+
+<h3>Introduction</h3>
+
+<p>BeiJing Food Price from BaLiQiao and XiFaDi</p>
+
+<p>获取北京食品价格从"八里桥"和"新发地"</p>
+
+<h3>snapshot 截图</h3>
+
+<p><img src="/foodprice_snapshot.png" alt="alt=&quot;snapshot&quot;" /></p>
+
+<ul>
+<li>all 输出所有食品价格</li>
+<li>help 获得用法</li>
+<li>multi-column 多个价格在一行输出</li>
+<li>output 将菜价输出至文件</li>
+</ul>
+
+<h3>usage 用法</h3>
+
+<blockquote>
+USEAGE:
+foodprice.py [-a|--all] [-h|--help][-m|--multi-column][-o <file>|--output=<file>]
+
+    all     Show all kinds of food
+
+    help    Help
+
+    output  output in <file>
+</blockquote>
+
+<h3>develop 开发</h3>
+
+<p>python
+<a href="https://github.com/codepongo/bjfoodprice">source code 源代码</a></p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/4PL5VQ/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>zjdict 命令行字典</h1>
+</title>
+<link>http://codepongo.com/blog/2pdyis</link>
+<comments>http://codepongo.com/blog/2pdyis#comments</comments>
+<pubDate>Mon, 22 Oct 2012 09:55:27 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<category>python</category>
+<guid isPermaLink="false">http://codepongo.com/blog/2pdyis/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<p><img src="/zjdict_icon.png" alt="alt=zjdict icon图标" /></p>
+
+<p><strong>a command line word dictionary</strong></p>
+
+<h1>Function 功能</h1>
+
+<ul>
+<li><p>green application 绿色软件 无需安装 解压即用</p></li>
+<li><p>new word file as text format 文本格式生词本</p></li>
+<li><p>command user interface 命令行交互</p></li>
+<li><p>local dictionary. 离线词典
+you can translate word by local <em>startdict</em> dictionary 
+本地使用星际译王词典</p></li>
+<li><p>translate on line. 在线翻译
+support baidu online translate and youdao online translate.
+支持百度词典，有道词典在线翻译</p></li>
+<li><p>mode 多模式
+translate mode 翻译模式
+search mode 查找模式</p></li>
+<li><p>matching 匹配方式
+regular expression 支持正则表达式</p></li>
+</ul>
+
+<h1>snapshot 截图</h1>
+
+<p><img src="/zjdict_run.png" alt="alt=run运行" />
+<img src="/zjdict_translate.png" alt="alt=translate翻译" />
+<img src="/zjdict_search.png" alt="alt=search 查找" />
+<img src="/zjdict_search_mode.png" alt="alt=search mode查找模式" /></p>
+
+<h1>command 命令</h1>
+
+<ul>
+<li><p><strong>,save</strong> save to 'new word' file保存至生词本</p></li>
+<li><p><strong>,search &lt;regular&gt;</strong> 查找</p></li>
+<li><p><strong>,search</strong> search mode 查找模式</p></li>
+<li><p><strong>,quit</strong> or <strong>,exit</strong> exit 退出</p></li>
+</ul>
+
+<h1>develop 开发</h1>
+
+<ul>
+<li><p>source code 源代码</p>
+
+<ul>
+<li><a href="http://github.com/codepongo/zjdict">@github</a> the newest</li>
+<li><a href="http://utocode.googlecode.com/svn/trunk/zjdict/">@googlecode</a> mirror</li>
+</ul></li>
+<li><p>third party library 第三方库</p>
+
+<ul>
+<li>pystardict 
+<a href="http://sourceforge.net/projects/pystardict">@sourceforge</a>
+<a href="https://github.com/lig/pystardict">@github</a></li>
+<li>getch</li>
+</ul></li>
+</ul>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/2pdyis/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>zShellExt</h1>
+</title>
+<link>http://codepongo.com/blog/3cGtE7</link>
+<comments>http://codepongo.com/blog/3cGtE7#comments</comments>
+<pubDate>Wed, 25 Jul 2012 12:00:49 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<guid isPermaLink="false">http://codepongo.com/blog/3cGtE7/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<h2>explorer扩展</h2>
+
+<p><strong>windows explorer extension for launch "cmd.exe" and "Visual Studio bat"</strong>
+加入cmd.exe和visual studio bat到explorer右键菜单</p>
+
+<h3>Function 功能</h3>
+
+<p>launch "cmd.exe" through the explorer content menu (mouse right button menu)
+快速启动windows命令行</p>
+
+<p>lanuch "Visual Studio vcvarsall" through the explorer content menu
+快速启动visual studio批处理</p>
+
+<h3>snapshot 截图</h3>
+
+<p><img src="/zShellExt.jpg" alt="alt=&quot;snapshot&quot;" /></p>
+
+<h3>develop 开发</h3>
+
+<p>windows, ATL, C++</p>
+
+<p><a href="https://github.com/codepongo/zshellext">source code源码</a></p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/3cGtE7/feed/</wfw:commentRss>
+</item>
+<item>
+<title><h1>zjruler</h1>
+</title>
+<link>http://codepongo.com/blog/1XnCKA</link>
+<comments>http://codepongo.com/blog/1XnCKA#comments</comments>
+<pubDate>Tue, 25 Jan 2011 04:49:55 +0200</pubDate>
+<dc:creator>zuohaitao</dc:creator>
+<category>application</category>
+<guid isPermaLink="false">http://codepongo.com/blog/1XnCKA/</guid>
+<description><![CDATA[ 
+ [...]]]></description>
+<content:encoded><![CDATA[
+
+<h2>zjruler 像素尺</h2>
+
+<h3>Introduction</h3>
+
+<p>a pixel ruler in windows</p>
+
+<ul>
+<li><p>Pick color 屏幕取色</p></li>
+<li><p>Rotate 旋转</p></li>
+<li><p>convert 单位转换</p>
+
+<p>pixel &lt;--DPI--> Millimeter/Inch</p></li>
+
+<li><p>Transparent 设置透明度</p></li>
+</ul>
+
+<h3>Snapshot</h3>
+
+<p><img src="/zjruler_ruler.png" alt="alt=&quot;ruler snapshot&quot;" /></p>
+
+<p><img src="/zjruler_menu.png" alt="alt=&quot;ruler menu&quot;" /></p>
+
+<p><img src="/zjruler_convert.png" alt="alt=&quot;ruler convert&quot;" /></p>
+
+<h3>develop</h3>
+
+<p>C++,MFC</p>
+
+<p><a href="https://github.com/codepongo/zjruler">source code源码</a></p>
+
+]]></content:encoded>
+<wfw:commentRss>http://codepongo.com/blog/1XnCKA/feed/</wfw:commentRss>
+</item>
+</channel>
+</rss>
