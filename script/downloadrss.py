@@ -4,8 +4,9 @@ import urllib2
 rssdir = 'temp'
 rss = [
         ('http://codepongo.com/blog/feed', 'blog.rss', 'blog', 'static/blog.ico'),
+        ('http://note.codepongo.com/feed', 'note.rss', 'diary', 'static/blog.ico'),
+        ('http://cook.codepongo.com/feed', 'cook.rss', 'cook', 'static/blog.ico'),
         ('http://www.douban.com/feed/people/zhuhuotui/interests', 'douban.rss', '豆瓣', 'static/douban.ico'),
-        ('http://codepongo.com/blog/application/feed', 'app.rss', 'application', 'static/blog.ico'),
         ('https://github.com/codepongo.atom', 'github.rss', 'GitHub', 'static/github.ico'),
 ]
 def download(url, file):
