@@ -4,8 +4,8 @@ import urllib2
 rssdir = 'temp'
 rss = [
         ('http://codepongo.com/blog/feed', 'blog.rss', 'blog', 'static/blog.ico'),
-        ('http://note.codepongo.com/feed', 'note.rss', 'diary', 'static/blog.ico'),
-        ('http://cook.codepongo.com/feed', 'cook.rss', 'cook', 'static/blog.ico'),
+        ('http://note.codepongo.com/feed', 'note.rss', 'diary', 'static/note.ico'),
+        ('http://cook.codepongo.com/feed', 'cook.rss', 'cook', 'static/cook.ico'),
         ('http://www.douban.com/feed/people/zhuhuotui/interests', 'douban.rss', '豆瓣', 'static/douban.ico'),
         ('https://github.com/codepongo.atom', 'github.rss', 'GitHub', 'static/github.ico'),
 ]
