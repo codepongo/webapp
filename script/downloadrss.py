@@ -8,6 +8,7 @@ rss = [
         ('http://cook.codepongo.com/feed', 'cook.rss', 'cook', 'static/cook.ico'),
         ('http://www.douban.com/feed/people/zhuhuotui/interests', 'douban.rss', '豆瓣', 'static/douban.ico'),
         ('https://github.com/codepongo.atom', 'github.rss', 'GitHub', 'static/github.ico'),
+        ('http://www.v2ex.com/feed/member/codepongo.xml', 'v2ex.rss', 'v2ex', 'static/v2ex.ico'),
 ]
 def download(url, file):
     with open(os.path.join(rssdir, file), 'wb') as f:
