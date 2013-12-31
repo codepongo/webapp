@@ -17,7 +17,10 @@ def parse():
         channel = {}
         channel['ico'] = r[3]
         channel['name'] = r[2]
-        channel['url'] = f.feed.link
+        if f.feed.has_key('link'):
+            channel['url'] = f.feed.link
+        else:
+            channel['url'] = ''
         channel['items'] = []
         if len(f['items']) < 10:
             size = len(f['items'])
